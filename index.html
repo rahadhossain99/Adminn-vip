@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>লাভ ক্যালকুলেটর - অ্যাডমিন প্যানেল</title>
-  <!-- Tailwind CSS with custom colors -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -40,9 +39,7 @@
       }
     }
   </script>
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   
   <style>
@@ -95,7 +92,6 @@
 
 <body class="bg-gray-50 min-h-screen">
 
-  <!-- Admin Login Page -->
   <div id="login-container" class="bg-gradient-admin min-h-screen flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full animate-zoom-in">
       <div class="text-center mb-8">
@@ -122,9 +118,7 @@
     </div>
   </div>
 
-  <!-- Admin Panel -->
   <div id="admin-panel" class="hidden min-h-screen">
-    <!-- Sidebar -->
     <aside class="w-64 bg-primary-800 text-white fixed h-screen z-50 transition-all duration-300">
       <div class="p-6 border-b border-primary-700 flex items-center space-x-3">
         <div class="w-10 h-10 rounded-full bg-secondary-500 flex items-center justify-center text-white font-bold">A</div>
@@ -175,7 +169,6 @@
       </div>
     </aside>
 
-    <!-- Main Content -->
     <main class="ml-64 p-6 min-h-screen bg-gray-50 transition-all duration-300">
       <header class="flex justify-between items-center mb-8">
         <div>
@@ -191,12 +184,10 @@
         </div>
       </header>
 
-      <!-- Loading Spinner -->
       <div id="main-loading-spinner" class="flex justify-center items-center h-[50vh] hidden">
         <div class="w-16 h-16 border-4 border-gray-200 border-t-primary-500 rounded-full spinner"></div>
       </div>
       
-      <!-- Dashboard Tab -->
       <div id="dashboard-tab" class="tab-content animate-fade-in">
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <div class="card hover:border-primary-500 border border-transparent">
@@ -263,8 +254,7 @@
             <h2 class="text-xl font-bold text-gray-800 mb-4">শীর্ষ ব্যবহারকারী</h2>
             <div class="space-y-4">
               <div id="top-users" class="space-y-3">
-                <!-- Top users will be inserted here -->
-              </div>
+                </div>
               <div id="no-top-users" class="py-8 text-center text-gray-500 hidden">
                 <span class="material-icons-round text-4xl text-gray-300 mb-2">group</span>
                 <p>কোন ব্যবহারকারী পাওয়া যায়নি</p>
@@ -274,7 +264,6 @@
         </div>
       </div>
 
-      <!-- Users Tab -->
       <div id="users-tab" class="tab-content hidden animate-fade-in">
         <div class="card mb-6">
           <div class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
@@ -311,7 +300,6 @@
         </div>
       </div>
       
-      <!-- Activity Tab -->
       <div id="activity-tab" class="tab-content hidden animate-fade-in">
         <div class="card mb-6">
           <div class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
@@ -355,7 +343,6 @@
         </div>
       </div>
       
-      <!-- All History Tab -->
       <div id="history-tab" class="tab-content hidden animate-fade-in">
         <div class="card mb-6">
           <div class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
@@ -398,7 +385,6 @@
         </div>
       </div>
 
-      <!-- Settings Tab -->
       <div id="settings-tab" class="tab-content hidden animate-fade-in">
         <div class="grid lg:grid-cols-2 gap-6">
           <div class="card">
@@ -428,7 +414,7 @@
               </div>
               <div class="flex justify-between items-center border-b border-gray-200 pb-2">
                 <span class="text-gray-600">Firebase সংস্করণ</span>
-                <span id="firebase-version" class="font-medium">9.0.0</span>
+                <span id="firebase-version" class="font-medium">10.7.1</span>
               </div>
               <div class="flex justify-between items-center border-b border-gray-200 pb-2">
                 <span class="text-gray-600">সর্বশেষ আপডেট</span>
@@ -451,7 +437,6 @@
     </main>
   </div>
   
-  <!-- Confirmation Modal -->
   <div id="confirmation-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white rounded-2xl p-6 max-w-md w-full animate-zoom-in">
       <div class="flex items-center space-x-3 mb-4">
@@ -470,7 +455,6 @@
     </div>
   </div>
   
-  <!-- Loading Modal -->
   <div id="loading-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
     <div class="bg-white rounded-xl p-6 max-w-xs w-full text-center animate-zoom-in">
       <div class="w-12 h-12 border-4 border-primary-500 border-t-transparent rounded-full spinner mx-auto"></div>
@@ -478,7 +462,6 @@
     </div>
   </div>
 
-  <!-- Firebase SDK -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { 
@@ -501,9 +484,7 @@
       deleteDoc, 
       writeBatch, 
       collectionGroup,
-      updateDoc,
-      setDoc,
-      serverTimestamp
+      updateDoc
     } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
     // Firebase Configuration
@@ -590,7 +571,7 @@
     let usersData = [];
     let allHistoryData = [];
     let isInitialDataLoaded = false;
-    const ADMIN_EMAIL = "smartwork19999@gmail.com"; // Replace with your admin email
+    const ADMIN_EMAILS = ["smartwork19999@gmail.com", "another_admin@gmail.com"]; // Multiple admin support
 
     // Helper Functions
     function formatDate(date) {
@@ -675,7 +656,9 @@
         usersData = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         
         // Load history data
-        const historySnapshot = await getDocs(collectionGroup(db, 'history'));
+        // Use a limit to prevent performance issues with large datasets
+        const historyQuery = query(collectionGroup(db, 'history'), orderBy('timestamp', 'desc'), limit(500));
+        const historySnapshot = await getDocs(historyQuery);
         allHistoryData = historySnapshot.docs.map(doc => {
           const path = doc.ref.path.split('/');
           const userId = path[path.indexOf('users') + 1];
@@ -730,7 +713,7 @@
     function renderLatestCalculations() {
       latestCalculationsEl.innerHTML = '';
       const latest = [...allHistoryData]
-        .sort((a, b) => b.timestamp - a.timestamp)
+        .sort((a, b) => (b.timestamp?.getTime() || 0) - (a.timestamp?.getTime() || 0))
         .slice(0, 5);
       
       if (latest.length === 0) {
@@ -800,10 +783,12 @@
     function renderUsersList(searchTerm = '') {
       usersListEl.innerHTML = '';
       
-      const filteredUsers = usersData.filter(user => 
+      // Corrected logical error: sort after filter
+      let filteredUsers = usersData.filter(user => 
         !searchTerm || 
         (user.email && user.email.toLowerCase().includes(searchTerm.toLowerCase()))
-        .sort((a, b) => (b.signUpDate?.toDate() || 0) - (a.signUpDate?.toDate() || 0));
+      );
+      filteredUsers.sort((a, b) => (b.signUpDate?.toDate()?.getTime() || 0) - (a.signUpDate?.toDate()?.getTime() || 0));
       
       if (filteredUsers.length === 0) {
         noUsersEl.classList.remove('hidden');
@@ -816,7 +801,7 @@
         const calculationCount = allHistoryData.filter(h => h.userId === user.id).length;
         const lastActivity = allHistoryData
           .filter(h => h.userId === user.id)
-          .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0))[0];
+          .sort((a, b) => (b.timestamp?.getTime() || 0) - (a.timestamp?.getTime() || 0))[0];
         
         const row = document.createElement('tr');
         row.className = 'hover:bg-gray-50 transition-colors';
@@ -844,8 +829,7 @@
     function renderActivityList(searchTerm = '', filter = 'all') {
       activityListEl.innerHTML = '';
       
-      let filteredActivity = [...allHistoryData]
-        .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+      let filteredActivity = [...allHistoryData];
       
       // Apply time filter
       const now = new Date();
@@ -881,6 +865,8 @@
         });
       }
       
+      filteredActivity.sort((a, b) => (b.timestamp?.getTime() || 0) - (a.timestamp?.getTime() || 0));
+      
       if (filteredActivity.length === 0) {
         noActivityEl.classList.remove('hidden');
         return;
@@ -909,10 +895,10 @@
     function renderHistoryList(userId = null, searchTerm = '') {
       historyListEl.innerHTML = '';
       
-      let filteredHistory = allHistoryData;
+      let filteredHistory = [...allHistoryData];
       
       if (userId) {
-        filteredHistory = allHistoryData.filter(h => h.userId === userId);
+        filteredHistory = filteredHistory.filter(h => h.userId === userId);
       }
       
       if (searchTerm) {
@@ -928,7 +914,7 @@
         });
       }
       
-      filteredHistory.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+      filteredHistory.sort((a, b) => (b.timestamp?.getTime() || 0) - (a.timestamp?.getTime() || 0));
       
       if (filteredHistory.length === 0) {
         noHistoryEl.classList.remove('hidden');
@@ -969,8 +955,8 @@
         await signInWithPopup(auth, googleProvider);
       } catch (error) {
         console.error("Google Sign-In Error:", error);
-        showLoginMessage('লগইন ব্যর্থ হয়েছে: ' + error.message, true);
         toggleLoginSpinner(false);
+        showLoginMessage(`লগইন ব্যর্থ হয়েছে: ${error.code} - ${error.message}`, true);
       }
     });
 
@@ -1032,6 +1018,7 @@
           await loadInitialData();
         } catch (error) {
           console.error("Error clearing history:", error);
+          alert('হিস্টরি মোছার সময় একটি ত্রুটি হয়েছে।');
         } finally {
           showLoading(false);
         }
@@ -1076,6 +1063,7 @@
             await loadInitialData();
           } catch (error) {
             console.error("Error deleting user:", error);
+            alert('ব্যবহারকারী মোছার সময় একটি ত্রুটি হয়েছে।');
           } finally {
             showLoading(false);
           }
@@ -1115,6 +1103,7 @@
             await loadInitialData();
           } catch (error) {
             console.error("Error deleting history item:", error);
+            alert('হিস্টরি আইটেম মোছার সময় একটি ত্রুটি হয়েছে।');
           } finally {
             showLoading(false);
           }
@@ -1136,11 +1125,9 @@
 
     // Auth State Listener
     onAuthStateChanged(auth, async (user) => {
-      toggleLoginSpinner(false);
-      
       if (user) {
-        // Check if user is admin
-        if (user.email === ADMIN_EMAIL) {
+        // Check if user is an admin
+        if (ADMIN_EMAILS.includes(user.email)) {
           currentAdmin = user;
           
           // Update admin info in UI
@@ -1149,7 +1136,6 @@
           adminEmail.textContent = user.email;
           adminEmailShort.textContent = user.email;
           
-          // Load data if not already loaded
           showAdminPanel(true);
           if (!isInitialDataLoaded) {
             await loadInitialData();
@@ -1157,24 +1143,25 @@
           
           // Set default tab
           switchTab('dashboard');
+          showLoginMessage('');
         } else {
-          // Not admin, sign out
+          // Not an admin, sign out
           showLoginMessage('আপনার অ্যাডমিন অ্যাক্সেস নেই।', true);
           await signOut(auth);
-          showAdminPanel(false);
         }
       } else {
         // User signed out
         currentAdmin = null;
         showAdminPanel(false);
         isInitialDataLoaded = false;
+        toggleLoginSpinner(false);
         showLoginMessage('');
       }
     });
 
     // Initialize settings tab
-    adminEmailInput.value = ADMIN_EMAIL;
+    adminEmailInput.value = ADMIN_EMAILS.join(', ');
     appIdInput.value = appId;
   </script>
 </body>
-  </html>
+          </html>
