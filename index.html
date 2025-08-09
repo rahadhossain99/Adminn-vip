@@ -8,7 +8,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
   
   <style>
     body {
@@ -18,14 +17,8 @@
     .bg-gradient-love {
       background-image: linear-gradient(to right, #6b21a8, #88138d, #be185d);
     }
-    .input-field {
-      @apply w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-300 shadow-sm;
-    }
     .btn-primary {
       @apply w-full px-6 py-3 bg-pink-600 text-white font-semibold rounded-xl hover:bg-pink-700 transition-all duration-300 transform hover:scale-105 shadow-lg;
-    }
-    .btn-google {
-      @apply w-full flex items-center justify-center space-x-2 px-6 py-3 bg-white text-gray-700 font-semibold rounded-xl border border-gray-300 hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-md;
     }
     .bg-sidebar {
       background-color: #6a1b9a;
@@ -72,26 +65,20 @@
 
   <!-- Admin Login Page -->
   <div id="login-container" class="bg-gradient-love min-h-screen flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full transition-transform transform hover:scale-105 duration-500">
-      <div class="text-center mb-8">
-        <h1 class="text-3xl md:text-4xl font-bold text-purple-800">অ্যাডমিন লগইন</h1>
-        <p class="text-gray-500 mt-2">অ্যাডমিন প্যানেলে প্রবেশ করতে লগইন করুন।</p>
+    <div class="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full transition-transform transform hover:scale-105 duration-500 text-center">
+      <h1 class="text-3xl md:text-4xl font-bold text-purple-800">অ্যাডমিন প্যানেল</h1>
+      <p class="text-gray-500 mt-2 mb-8">অনুগ্রহ করে লগইন করুন</p>
+      
+      <button id="google-login-btn" class="w-full flex items-center justify-center space-x-3 px-4 py-3 bg-white border border-gray-300 rounded-full font-semibold text-gray-700 hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+        <svg class="w-6 h-6" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path><path fill="none" d="M0 0h48v48H0z"></path></svg>
+        <span>গুগল দিয়ে লগইন করুন</span>
+      </button>
+
+      <div id="login-status" class="mt-6 text-center">
+        <div id="login-spinner" class="w-8 h-8 border-4 border-purple-500 border-t-transparent border-solid rounded-full animate-spin mx-auto hidden"></div>
+        <p id="login-message" class="text-gray-600 mt-2"></p>
       </div>
-      <div id="login-form">
-        <!-- Google Login Button -->
-        <button type="button" id="google-login-btn" class="btn-google mb-4">
-          <svg class="w-6 h-6" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M44.5 20H24V28.8H35.2C34.6 32.4 32.1 35.2 28.5 37.1V44H36.3C40.9 40.5 44 34.3 44 26.5C44 24.9 43.8 23.3 43.5 21.8C44.5 21.2 45.2 20.6 44.5 20Z" fill="#4285F4"/>
-            <path d="M24 48C30.4 48 35.8 45.9 39.8 42.6L32 36.3C29.6 37.9 26.9 38.8 24 38.8C18 38.8 12.8 34.8 10.9 29.3L3.1 35.6C5.5 41.5 14.1 48 24 48Z" fill="#34A853"/>
-            <path d="M10.9 29.3C10.5 28.1 10.3 26.8 10.3 25.4C10.3 24.1 10.5 22.8 10.9 21.6L3.1 15.3C3.1 16.9 3 18.7 3 20.6C3 29.5 9.4 37 18.2 41L26.1 34.7C24.2 33.6 22.9 32.2 21.9 30.6L10.9 29.3Z" fill="#FBBC04"/>
-            <path d="M24 9.2C27.3 9.2 30.2 10.4 32.5 12.6L39.8 5.3C35.8 2 30.4 0 24 0C14.1 0 5.5 6.5 3.1 12.4L10.9 18.7C12.8 13.2 18 9.2 24 9.2Z" fill="#EA4335"/>
-          </svg>
-          <span>Google দিয়ে লগইন করুন</span>
-        </button>
-        <div id="error-message" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl relative hidden mb-4" role="alert">
-          <span id="error-text" class="block sm:inline"></span>
-        </div>
-      </div>
+
     </div>
   </div>
 
@@ -259,7 +246,7 @@
   </div>
   
   <!-- Custom Confirmation Modal -->
-  <div id="confirmation-modal" class="fixed inset-0 modal-overlay flex items-center justify-center p-4 hidden">
+  <div id="confirmation-modal" class="fixed inset-0 modal-overlay flex items-center justify-center p-4 hidden z-50">
     <div class="bg-white rounded-3xl p-8 shadow-2xl max-w-sm w-full modal-content">
       <h3 class="text-xl font-bold text-gray-800 mb-4">নিশ্চিত করুন</h3>
       <p id="modal-text" class="text-gray-600 mb-6">আপনি কি এই কাজটি করতে চান?</p>
@@ -271,7 +258,7 @@
   </div>
   
   <!-- Loading Spinner Modal -->
-  <div id="loading-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+  <div id="loading-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
     <div class="flex flex-col items-center p-6 bg-white rounded-lg shadow-xl">
       <div class="w-10 h-10 border-4 border-purple-500 border-t-transparent border-solid rounded-full animate-spin"></div>
       <p class="mt-4 text-gray-700 font-medium">প্রক্রিয়াকরণ হচ্ছে...</p>
@@ -281,28 +268,28 @@
   <!-- Firebase SDK and custom script -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut, signInWithCustomToken, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-    import { getFirestore, doc, getDoc, getDocs, onSnapshot, collection, query, where, deleteDoc, writeBatch, collectionGroup } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getFirestore, doc, getDoc, getDocs, onSnapshot, collection, query, deleteDoc, writeBatch, collectionGroup, updateDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
     
-    // Load Firebase configuration and auth token from global variables
+    // --- Firebase Configuration ---
     const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
     const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-
-    // Initialize Firebase
+    
+    // --- Initialize Firebase ---
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
     const auth = getAuth(app);
-    const provider = new GoogleAuthProvider();
+    const googleProvider = new GoogleAuthProvider();
 
-    // Admin login specific elements
+    // --- DOM Elements ---
+    // Login Page
     const loginContainer = document.getElementById('login-container');
-    const adminPanel = document.getElementById('admin-panel');
     const googleLoginBtn = document.getElementById('google-login-btn');
-    const errorMessage = document.getElementById('error-message');
-    const errorText = document.getElementById('error-text');
-    const loadingModal = document.getElementById('loading-modal');
-
-    // Admin panel specific elements
+    const loginSpinner = document.getElementById('login-spinner');
+    const loginMessage = document.getElementById('login-message');
+    
+    // Admin Panel
+    const adminPanel = document.getElementById('admin-panel');
     const sidebarLinks = document.querySelectorAll('a[data-tab]');
     const tabContents = document.querySelectorAll('.tab-content');
     const pageTitleEl = document.getElementById('page-title');
@@ -311,172 +298,153 @@
     const adminEmailEl = document.getElementById('admin-email');
     const mainLoadingSpinner = document.getElementById('main-loading-spinner');
     
-    // Dashboard elements
+    // Dashboard
     const totalUsersEl = document.getElementById('total-users');
     const totalCalculationsEl = document.getElementById('total-calculations');
     const todayActivityEl = document.getElementById('today-activity');
     const avgPercentageEl = document.getElementById('avg-percentage');
     const latestCalculationsEl = document.getElementById('latest-calculations');
     
-    // Users tab elements
+    // Users Tab
     const userSearchInput = document.getElementById('user-search');
     const searchUserBtn = document.getElementById('search-user-btn');
     const usersListEl = document.getElementById('users-list');
     
-    // Activity tab elements
+    // Activity Tab
     const activitySearchInput = document.getElementById('activity-search');
     const searchActivityBtn = document.getElementById('search-activity-btn');
     const activityListEl = document.getElementById('activity-list');
     
-    // History tab elements
+    // History Tab
     const historySearchInput = document.getElementById('history-search');
     const searchHistoryBtn = document.getElementById('search-history-btn');
     const clearHistoryBtn = document.getElementById('clear-history-btn');
     const historyListEl = document.getElementById('history-list');
     
-    // Custom modal elements
+    // Modals
     const confirmationModal = document.getElementById('confirmation-modal');
     const modalText = document.getElementById('modal-text');
     const confirmBtn = document.getElementById('confirm-btn');
     const cancelBtn = document.getElementById('cancel-btn');
+    const loadingModal = document.getElementById('loading-modal');
     
-    // Global state
+    // --- Global State & Constants ---
     let currentAdmin = null;
     let usersData = [];
     let allHistoryData = [];
-    let isInitialDataLoaded = false; // Flag to track initial data load
-
-    // Only this email is allowed to be an admin
+    let isInitialDataLoaded = false;
     const ADMIN_EMAIL = "smartwork19999@gmail.com";
-    
-    // Custom message box function
-    function showMessage(message, type = 'error') {
-      errorText.textContent = message;
-      errorMessage.classList.remove('hidden', 'bg-red-100', 'bg-green-100');
-      errorMessage.classList.remove('border-red-400', 'border-green-400');
-      errorMessage.classList.remove('text-red-700', 'text-green-700');
-      if (type === 'error') {
-        errorMessage.classList.add('bg-red-100', 'border-red-400', 'text-red-700');
-      } else {
-        errorMessage.classList.add('bg-green-100', 'border-green-400', 'text-green-700');
-      }
-      errorMessage.classList.remove('hidden'); // Ensure it's visible
+
+    // --- UI Functions ---
+    function showLoginMessage(message, isError = false) {
+      loginMessage.textContent = message;
+      loginMessage.className = isError ? 'text-red-600 mt-2' : 'text-gray-600 mt-2';
     }
 
-    // Function to show/hide sections based on login status
+    function toggleLoginSpinner(show) {
+        loginSpinner.classList.toggle('hidden', !show);
+    }
+
     function showAdminPanel(show) {
-        if (show) {
-            loginContainer.classList.add('hidden');
-            adminPanel.classList.remove('hidden');
-        } else {
-            loginContainer.classList.remove('hidden');
-            adminPanel.classList.add('hidden');
-        }
+        loginContainer.classList.toggle('hidden', show);
+        adminPanel.classList.toggle('hidden', !show);
     }
 
-    // Auth state listener
+    // --- Authentication ---
     onAuthStateChanged(auth, async (user) => {
-        // The Canvas environment handles the initial sign-in with a custom token.
-        // We only need to react to the user object's presence and email.
-        if (user && user.email === ADMIN_EMAIL) {
-            currentAdmin = user;
-            adminEmailEl.textContent = user.email;
-            adminEmailEl.classList.remove('hidden');
-            if (user.photoURL) {
-                adminPhoto.src = user.photoURL;
+        toggleLoginSpinner(false);
+        if (user) {
+            if (user.email === ADMIN_EMAIL) {
+                // Admin successfully logged in
+                currentAdmin = user;
+                adminEmailEl.textContent = user.email;
+                adminEmailEl.classList.remove('hidden');
+                adminPhoto.src = user.photoURL || `https://placehold.co/40x40/6a1b9a/ffffff?text=${user.email[0].toUpperCase()}`;
+                
+                showAdminPanel(true);
+                if (!isInitialDataLoaded) {
+                    await loadInitialData();
+                    isInitialDataLoaded = true;
+                }
+                switchTab('dashboard');
+            } else {
+                // Not an admin, sign them out
+                showLoginMessage('প্রবেশাধিকার নেই। আপনি অ্যাডমিন নন।', true);
+                await signOut(auth);
+                showAdminPanel(false);
             }
-            showAdminPanel(true);
-            // Only load data once after successful login
-            if (!isInitialDataLoaded) {
-                await loadInitialData();
-                isInitialDataLoaded = true;
-            }
-            switchTab('dashboard');
         } else {
-            // If user exists but is not ADMIN_EMAIL, log them out
-            if (user) {
-              await signOut(auth); 
-              showMessage('আপনি অ্যাডমিন নন।'); // Inform user
-            }
+            // User is signed out
             currentAdmin = null;
             showAdminPanel(false);
-            errorMessage.classList.add('hidden'); // Hide previous error messages on logout/failed login
+            isInitialDataLoaded = false; // Reset data load flag on logout
+            showLoginMessage(''); // Clear any previous messages
         }
     });
 
-    // Google Login
     googleLoginBtn.addEventListener('click', async () => {
-        errorMessage.classList.add('hidden'); // Hide any previous error messages
-        loadingModal.classList.remove('hidden');
+        toggleLoginSpinner(true);
+        showLoginMessage('গুগল দিয়ে সাইন ইন করা হচ্ছে...');
         try {
-            const result = await signInWithPopup(auth, provider);
-            const user = result.user;
-            if (user.email !== ADMIN_EMAIL) {
-                await signOut(auth); // Log out immediately if not the admin
-                showMessage('আপনি অ্যাডমিন নন।');
-            }
-            // If it's the admin, onAuthStateChanged will handle displaying the panel
+            await signInWithPopup(auth, googleProvider);
+            // onAuthStateChanged will handle the rest
         } catch (error) {
-            let message = 'গুগল লগইন ব্যর্থ হয়েছে।';
-            if (error.code === 'auth/popup-closed-by-user') {
-                message = 'লগইন পপআপ বন্ধ করা হয়েছে।';
-            } else if (error.code === 'auth/cancelled-popup-request') {
-                message = 'অন্য একটি পপআপ লগইন প্রক্রিয়া চলছে।';
-            }
-            showMessage(message);
-            console.error("Google login error:", error);
-        } finally {
-            loadingModal.classList.add('hidden');
+            console.error("Google Sign-In Error:", error);
+            showLoginMessage('গুগল লগইন ব্যর্থ হয়েছে। আবার চেষ্টা করুন।', true);
+            toggleLoginSpinner(false);
         }
     });
+    
+    logoutBtn.addEventListener('click', async () => {
+      loadingModal.classList.remove('hidden');
+      try {
+        await signOut(auth);
+      } catch (error) {
+        console.error("Logout failed:", error);
+      } finally {
+        loadingModal.classList.add('hidden');
+      }
+    });
 
-    // All data loader
+    // --- Data Loading and Rendering ---
     async function loadInitialData() {
-      mainLoadingSpinner.classList.remove('hidden');
-      
-      // Use a promise to ensure both onSnapshot listeners have fired at least once
-      const dataLoadPromise = new Promise(resolve => {
-        let usersSnapshotReceived = false;
-        let historySnapshotReceived = false;
-
-        const checkCompletion = () => {
-          if (usersSnapshotReceived && historySnapshotReceived) {
-            resolve();
-          }
-        };
-
-        onSnapshot(collection(db, `artifacts/${appId}/public/users`), (snapshot) => {
-          usersData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          loadDashboardData();
-          renderUsersList();
-          usersSnapshotReceived = true;
-          checkCompletion();
-        });
+        mainLoadingSpinner.classList.remove('hidden');
         
-        onSnapshot(collectionGroup(db, 'history'), (snapshot) => {
-          allHistoryData = snapshot.docs.map(doc => {
-            const path = doc.ref.path.split('/');
-            const userId = path[3];
-            return { id: doc.id, userId: userId, ...doc.data() };
-          });
-          loadDashboardData();
-          renderHistoryList();
-          historySnapshotReceived = true;
-          checkCompletion();
-        });
-      });
-      
-      await dataLoadPromise;
-      mainLoadingSpinner.classList.add('hidden');
+        // Using Promise.all to fetch both collections concurrently
+        await Promise.all([
+            new Promise(resolve => {
+                onSnapshot(collection(db, `artifacts/${appId}/public/users`), (snapshot) => {
+                    usersData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                    resolve();
+                });
+            }),
+            new Promise(resolve => {
+                onSnapshot(collectionGroup(db, 'history'), (snapshot) => {
+                    allHistoryData = snapshot.docs.map(doc => {
+                        const path = doc.ref.path.split('/');
+                        const userId = path[path.indexOf('users') + 1];
+                        return { id: doc.id, userId: userId, ...doc.data() };
+                    });
+                    resolve();
+                });
+            })
+        ]);
+        
+        // Once all data is loaded, update the UI
+        updateAllUI();
+        mainLoadingSpinner.classList.add('hidden');
+    }
+    
+    function updateAllUI() {
+        loadDashboardData();
+        renderUsersList();
+        renderActivityList();
+        renderHistoryList();
     }
 
-    // Dashboard Data
     function loadDashboardData() {
-      const totalUsers = usersData.length;
-      totalUsersEl.textContent = totalUsers;
-      
-      const totalCalculations = allHistoryData.length;
-      totalCalculationsEl.textContent = totalCalculations;
+      totalUsersEl.textContent = usersData.length;
+      totalCalculationsEl.textContent = allHistoryData.length;
       
       const today = new Date();
       today.setHours(0, 0, 0, 0);
@@ -484,16 +452,15 @@
       todayActivityEl.textContent = todayActivityCount;
       
       const totalPercentage = allHistoryData.reduce((sum, h) => sum + (h.percentage || 0), 0);
-      const avgPercentage = totalCalculations > 0 ? (totalPercentage / totalCalculations).toFixed(2) : 0;
+      const avgPercentage = allHistoryData.length > 0 ? (totalPercentage / allHistoryData.length).toFixed(2) : 0;
       avgPercentageEl.textContent = `${avgPercentage}%`;
       
       renderLatestCalculations();
     }
     
-    // Render latest calculations
     function renderLatestCalculations() {
       latestCalculationsEl.innerHTML = '';
-      const latest = allHistoryData.sort((a, b) => (b.timestamp?.toDate() || 0) - (a.timestamp?.toDate() || 0)).slice(0, 5); // Display top 5 latest calculations
+      const latest = [...allHistoryData].sort((a, b) => (b.timestamp?.toDate() || 0) - (a.timestamp?.toDate() || 0)).slice(0, 5);
       
       if (latest.length === 0) {
         latestCalculationsEl.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-gray-500">কোন সাম্প্রতিক গণনা পাওয়া যায়নি।</td></tr>`;
@@ -504,7 +471,7 @@
         const user = usersData.find(u => u.id === calc.userId);
         const userEmail = user?.email || 'অজানা ব্যবহারকারী';
         const names = `${calc.loverName || 'অজানা'} ❤️ ${calc.partnerName || 'অজানা'}`;
-        const time = calc.timestamp?.toDate().toLocaleString() || 'অজানা';
+        const time = calc.timestamp?.toDate().toLocaleString('bn-BD') || 'অজানা';
         
         const row = document.createElement('tr');
         row.className = 'hover:bg-gray-50 transition-colors duration-200';
@@ -518,7 +485,6 @@
       });
     }
 
-    // Render users list
     function renderUsersList(searchTerm = '') {
       usersListEl.innerHTML = '';
       const filteredUsers = usersData.filter(user => 
@@ -531,15 +497,16 @@
       }
 
       filteredUsers.forEach(user => {
-        const signUpDate = user.signUpDate?.toDate().toLocaleDateString() || 'অজানা';
+        const signUpDate = user.signUpDate?.toDate().toLocaleDateString('bn-BD') || 'অজানা';
+        const calculationCount = allHistoryData.filter(h => h.userId === user.id).length;
         const row = document.createElement('tr');
         row.className = 'hover:bg-gray-50 transition-colors duration-200';
         row.innerHTML = `
           <td class="px-4 py-3">${user.email || 'অজানা'}</td>
           <td class="px-4 py-3 text-sm text-gray-500">${signUpDate}</td>
-          <td class="px-4 py-3 font-semibold">${user.calculationCount || 0}</td>
+          <td class="px-4 py-3 font-semibold">${calculationCount}</td>
           <td class="px-4 py-3 space-x-2">
-            <button class="bg-purple-500 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-purple-600 transition-colors duration-200 view-user-btn" data-id="${user.id}">দেখুন</button>
+            <button class="bg-purple-500 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-purple-600 transition-colors duration-200 view-user-btn" data-id="${user.id}">হিস্টরি দেখুন</button>
             <button class="bg-red-500 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-red-600 transition-colors duration-200 delete-user-btn" data-id="${user.id}">মুছে ফেলুন</button>
           </td>
         `;
@@ -547,18 +514,17 @@
       });
     }
     
-    // Render activity list
     function renderActivityList(searchTerm = '') {
       activityListEl.innerHTML = '';
-      // Activity tab specifically shows "recent" activity, usually last few hundreds or today's
-      const recentActivity = allHistoryData.sort((a, b) => (b.timestamp?.toDate() || 0) - (a.timestamp?.toDate() || 0)).slice(0, 100); // Show max 100 recent activities
+      const recentActivity = [...allHistoryData].sort((a, b) => (b.timestamp?.toDate() || 0) - (a.timestamp?.toDate() || 0)).slice(0, 100);
       
-      const filteredActivity = recentActivity.filter(activity => 
-        !searchTerm || 
+      const filteredActivity = recentActivity.filter(activity => {
+        const userEmail = usersData.find(u => u.id === activity.userId)?.email || '';
+        return !searchTerm || 
         (activity.loverName && activity.loverName.toLowerCase().includes(searchTerm.toLowerCase())) ||
         (activity.partnerName && activity.partnerName.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        (usersData.find(u => u.id === activity.userId)?.email && usersData.find(u => u.id === activity.userId).email.toLowerCase().includes(searchTerm.toLowerCase()))
-      );
+        (userEmail && userEmail.toLowerCase().includes(searchTerm.toLowerCase()));
+      });
       
       if (filteredActivity.length === 0) {
         activityListEl.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-gray-500">কোন কার্যকলাপ পাওয়া যায়নি।</td></tr>`;
@@ -569,7 +535,7 @@
         const user = usersData.find(u => u.id === activity.userId);
         const userEmail = user?.email || 'অজানা ব্যবহারকারী';
         const names = `${activity.loverName || 'অজানা'} ❤️ ${activity.partnerName || 'অজানা'}`;
-        const time = activity.timestamp?.toDate().toLocaleString() || 'অজানা';
+        const time = activity.timestamp?.toDate().toLocaleString('bn-BD') || 'অজানা';
         const row = document.createElement('tr');
         row.className = 'hover:bg-gray-50 transition-colors duration-200';
         row.innerHTML = `
@@ -582,7 +548,6 @@
       });
     }
 
-    // Render history list
     function renderHistoryList(userId = null, searchTerm = '') {
       historyListEl.innerHTML = '';
       let filteredHistory = allHistoryData;
@@ -592,14 +557,15 @@
       }
       
       if (searchTerm) {
-        filteredHistory = filteredHistory.filter(h => 
-          (h.loverName && h.loverName.toLowerCase().includes(searchTerm.toLowerCase())) ||
-          (h.partnerName && h.partnerName.toLowerCase().includes(searchTerm.toLowerCase())) ||
-          (usersData.find(u => u.id === h.userId)?.email && usersData.find(u => u.id === h.userId).email.toLowerCase().includes(searchTerm.toLowerCase()))
-        );
+        const lowerCaseSearch = searchTerm.toLowerCase();
+        filteredHistory = filteredHistory.filter(h => {
+          const userEmail = usersData.find(u => u.id === h.userId)?.email || '';
+          return (h.loverName && h.loverName.toLowerCase().includes(lowerCaseSearch)) ||
+                 (h.partnerName && h.partnerName.toLowerCase().includes(lowerCaseSearch)) ||
+                 (userEmail && userEmail.toLowerCase().includes(lowerCaseSearch));
+        });
       }
 
-      // Sort by timestamp descending
       filteredHistory.sort((a, b) => (b.timestamp?.toDate() || 0) - (a.timestamp?.toDate() || 0));
 
       if (filteredHistory.length === 0) {
@@ -611,7 +577,7 @@
         const user = usersData.find(u => u.id === historyItem.userId);
         const userEmail = user?.email || 'অজানা ব্যবহারকারী';
         const names = `${historyItem.loverName || 'অজানা'} ❤️ ${historyItem.partnerName || 'অজানা'}`;
-        const time = historyItem.timestamp?.toDate().toLocaleString() || 'অজানা';
+        const time = historyItem.timestamp?.toDate().toLocaleString('bn-BD') || 'অজানা';
         
         const row = document.createElement('tr');
         row.className = 'hover:bg-gray-50 transition-colors duration-200';
@@ -628,7 +594,7 @@
       });
     }
 
-    // Switch tabs
+    // --- UI Interaction ---
     function switchTab(tabId) {
       sidebarLinks.forEach(link => {
         link.classList.remove('active-link');
@@ -638,39 +604,34 @@
         }
       });
       tabContents.forEach(content => {
-        if (content.id === `${tabId}-tab`) {
-          content.classList.remove('hidden');
-        } else {
-          content.classList.add('hidden');
-        }
+        content.classList.toggle('hidden', content.id !== `${tabId}-tab`);
       });
     }
     
-    // Show confirmation modal
     function showConfirmation(message, onConfirm) {
       modalText.textContent = message;
       confirmationModal.classList.remove('hidden');
       
-      // Use a one-time event listener to prevent multiple calls
-      const confirmListener = (e) => {
-        confirmBtn.removeEventListener('click', confirmListener);
-        cancelBtn.removeEventListener('click', cancelListener);
-        confirmationModal.classList.add('hidden');
+      const confirmListener = () => {
+        cleanup();
         onConfirm();
       };
       
-      const cancelListener = (e) => {
+      const cancelListener = () => {
+        cleanup();
+      };
+
+      const cleanup = () => {
         confirmBtn.removeEventListener('click', confirmListener);
         cancelBtn.removeEventListener('click', cancelListener);
         confirmationModal.classList.add('hidden');
       };
 
-      // Add fresh listeners
       confirmBtn.addEventListener('click', confirmListener);
       cancelBtn.addEventListener('click', cancelListener);
     }
 
-    // Event listeners
+    // --- Event Listeners ---
     sidebarLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
@@ -678,43 +639,15 @@
       });
     });
     
-    // Logout
-    logoutBtn.addEventListener('click', async () => {
-      loadingModal.classList.remove('hidden'); // Show loading spinner
-      try {
-        await signOut(auth);
-        isInitialDataLoaded = false; // Reset the flag on logout
-      } catch (error) {
-        console.error("Logout failed:", error);
-        showMessage('লগআউট ব্যর্থ হয়েছে।', 'error');
-      } finally {
-        loadingModal.classList.add('hidden'); // Hide loading spinner
-      }
-    });
-
-    // Users search
-    searchUserBtn.addEventListener('click', () => {
-      renderUsersList(userSearchInput.value.trim());
-    });
-    userSearchInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') renderUsersList(userSearchInput.value.trim());
-    });
+    // Search listeners
+    searchUserBtn.addEventListener('click', () => renderUsersList(userSearchInput.value.trim()));
+    userSearchInput.addEventListener('keypress', (e) => e.key === 'Enter' && renderUsersList(userSearchInput.value.trim()));
     
-    // Activity search
-    searchActivityBtn.addEventListener('click', () => {
-      renderActivityList(activitySearchInput.value.trim());
-    });
-    activitySearchInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') renderActivityList(activitySearchInput.value.trim());
-    });
+    searchActivityBtn.addEventListener('click', () => renderActivityList(activitySearchInput.value.trim()));
+    activitySearchInput.addEventListener('keypress', (e) => e.key === 'Enter' && renderActivityList(activitySearchInput.value.trim()));
     
-    // History search
-    searchHistoryBtn.addEventListener('click', () => {
-      renderHistoryList(null, historySearchInput.value.trim());
-    });
-    historySearchInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') renderHistoryList(null, historySearchInput.value.trim());
-    });
+    searchHistoryBtn.addEventListener('click', () => renderHistoryList(null, historySearchInput.value.trim()));
+    historySearchInput.addEventListener('keypress', (e) => e.key === 'Enter' && renderHistoryList(null, historySearchInput.value.trim()));
     
     // Clear all history
     clearHistoryBtn.addEventListener('click', () => {
@@ -722,30 +655,26 @@
         loadingModal.classList.remove('hidden');
         try {
           const historySnap = await getDocs(collectionGroup(db, 'history'));
-          const batch = writeBatch(db);
-          
-          if (historySnap.empty) {
-            showMessage('মুছে ফেলার জন্য কোন হিস্টরি পাওয়া যায়নি।', 'info');
-            loadingModal.classList.add('hidden');
-            return;
-          }
+          if (historySnap.empty) return;
 
-          // Delete all history documents
+          const batch = writeBatch(db);
+          const userRefsToUpdate = new Set();
+          
           historySnap.forEach(doc => {
-            batch.delete(doc.ref);
+              batch.delete(doc.ref);
+              const path = doc.ref.path.split('/');
+              const userId = path[path.indexOf('users') + 1];
+              userRefsToUpdate.add(doc(db, `artifacts/${appId}/public/users/${userId}`));
           });
           
-          // Update all user calculation counts to 0
-          usersData.forEach(user => {
-              const userRef = doc(db, `artifacts/${appId}/public/users/${user.id}`);
+          userRefsToUpdate.forEach(userRef => {
               batch.update(userRef, { calculationCount: 0 });
           });
 
           await batch.commit();
-          showMessage('সমস্ত হিস্টরি সফলভাবে মুছে ফেলা হয়েছে।', 'success');
+          updateAllUI(); // Refresh UI after deletion
         } catch (error) {
           console.error("Error clearing all history:", error);
-          showMessage('সব হিস্টরি মুছে ফেলা যায়নি। আবার চেষ্টা করুন।', 'error');
         } finally {
           loadingModal.classList.add('hidden');
         }
@@ -754,9 +683,12 @@
 
     // Dynamic event listener for table buttons
     document.body.addEventListener('click', async (e) => {
+      const target = e.target.closest('button');
+      if (!target) return;
+
       // Delete user
-      if (e.target.classList.contains('delete-user-btn')) {
-        const userId = e.target.dataset.id;
+      if (target.classList.contains('delete-user-btn')) {
+        const userId = target.dataset.id;
         showConfirmation('আপনি কি এই ব্যবহারকারীকে এবং তার সমস্ত ডেটা মুছে ফেলতে চান?', async () => {
           loadingModal.classList.remove('hidden');
           try {
@@ -766,48 +698,47 @@
             historySnap.forEach(doc => batch.delete(doc.ref));
             batch.delete(userRef);
             await batch.commit();
-            showMessage('ব্যবহারকারী এবং তাদের ডেটা সফলভাবে মুছে ফেলা হয়েছে।', 'success');
+            updateAllUI();
           } catch (error) {
             console.error("Error deleting user:", error);
-            showMessage('ব্যবহারকারী মুছে ফেলা যায়নি। আবার চেষ্টা করুন।', 'error');
           } finally {
             loadingModal.classList.add('hidden');
           }
         });
       }
       // View user history
-      if (e.target.classList.contains('view-user-btn')) {
-        const userId = e.target.dataset.id;
-        historySearchInput.value = ''; // Clear search when viewing specific user history
-        switchTab('history');
+      if (target.classList.contains('view-user-btn')) {
+        const userId = target.dataset.id;
+        historySearchInput.value = '';
         renderHistoryList(userId);
+        switchTab('history');
       }
       // Delete history item
-      if (e.target.classList.contains('delete-history-btn')) {
-        const historyId = e.target.dataset.id;
-        const userId = e.target.dataset.userid;
+      if (target.classList.contains('delete-history-btn')) {
+        const historyId = target.dataset.id;
+        const userId = target.dataset.userid;
         showConfirmation('আপনি কি এই হিস্টরি আইটেমটি মুছে ফেলতে চান?', async () => {
           loadingModal.classList.remove('hidden');
           try {
             const historyRef = doc(db, `artifacts/${appId}/public/users/${userId}/history/${historyId}`);
             await deleteDoc(historyRef);
-            // After deleting a history item, we should also decrement the user's calculation count
+            
             const userRef = doc(db, `artifacts/${appId}/public/users/${userId}`);
             const userDoc = await getDoc(userRef);
             if (userDoc.exists()) {
                 const currentCount = userDoc.data().calculationCount || 0;
                 await updateDoc(userRef, { calculationCount: Math.max(0, currentCount - 1) });
             }
-            showMessage('হিস্টরি আইটেম সফলভাবে মুছে ফেলা হয়েছে।', 'success');
+            updateAllUI();
           } catch (error) {
             console.error("Error deleting history item:", error);
-            showMessage('হিস্টরি আইটেম মুছে ফেলা যায়নি। আবার চেষ্টা করুন।', 'error');
           } finally {
             loadingModal.classList.add('hidden');
           }
         });
       }
     });
+
   </script>
 </body>
 </html>
